@@ -68,6 +68,7 @@ main button:hover {
       </div>
       <button onClick="getSignature()">Unirse</button>
     </main>
+    <!--Links CDN para API y Vista componente-->
     <script src="https://source.zoom.us/2.9.5/lib/vendor/react.min.js"></script>
     <script src="https://source.zoom.us/2.9.5/lib/vendor/react-dom.min.js"></script>
     <script src="https://source.zoom.us/2.9.5/lib/vendor/redux.min.js"></script>
@@ -75,12 +76,14 @@ main button:hover {
     <script src="https://source.zoom.us/2.9.5/lib/vendor/lodash.min.js"></script>
     <script src="https://source.zoom.us/2.9.5/zoom-meeting-embedded-2.9.5.min.js"></script>
      <script>
+       //para crear el cliente
     const client = ZoomMtgEmbedded.createClient()
-    
+    //los elemento en el HTML
 let meetingSDKElement = document.getElementById('meetingSDKElement')
 let meetingSDKChatElement = document.getElementById('meetingSDKChatElement')
-
-var signatureEndpoint = 'https://zoomsignature.onrender.com'
+//Link al sitio donde se hostpeda el verificador
+var signatureEndpoint = '{MEETING SDK SIGNATURE LINK}'
+//Variables del verificador
 var sdkKey = '{CLIENT-TOKEN}'
 var meetingNumber = '{MEETING-NUMBER}'
 var role = 0;
@@ -88,7 +91,7 @@ var userName = 'Usuario'
 var userEmail = ''
 var passWord = ''
 var registrantToken = ''
-
+//Iniciar Cliente 
 client.init({
   zoomAppRoot: meetingSDKElement,
   language: 'en-US',
@@ -113,7 +116,7 @@ client.init({
   }
 });
 
-
+//buscar el Token verificador
 function getSignature() {
   fetch(signatureEndpoint, {
     method: 'POST',
@@ -134,7 +137,7 @@ function getSignature() {
     console.log('nya')
   })
 }
-
+//Usa el toke para unirse a la reunion
 function startMeeting(signature) {
   client.join({
     sdkKey: sdkKey,
